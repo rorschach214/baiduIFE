@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://unpkg.com/san@latest"></script>
+
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+
+        }
+
+        #app {
+            display: flex;
+            justify-content: center;
+            margin-top: 10%;
+        }
+
+        .box {
+            padding: 20px;
+            background: lightblue;
+        }
+
+        .input-box input {
+            height: 30px;
+            width: 150px;
+            margin-right: 20px;
+        }
+
+        .show-box {
+            margin: 30px 0 0 150px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+</body>
+
+</html>
+
+
+<script>
+    const MyApp = san.defineComponent({
+        template: `
+        <div class="box">
+            <div class="input-box">
+                <input value="{=name=}" type="text" placeholder="姓名">
+                <input value="{=age=}" type="number" placeholder="年龄" >
+                <input value="{=bio=}" type="text" placeholder="简介">
+            </div>
+           <div class="show-box">
+                <h3>信息：<button on-click="remove">移除信息</button></h3>
+            <p>姓名：{{name}}</p>
+            <p>年龄：{{age}}</p>
+            <p>简介：{{bio}}</p></div> 
+        </div>
+        `,
+        remove() {
+            this.data.set("name", "");
+            this.data.set("age", undefined);
+            this.data.set("bio", "");
+        }
+    })
+    let myApp = new MyApp({
+        data: {
+            name: "",
+            age: undefined,
+            bio: ""
+        }
+    });
+
+    myApp.attach(document.getElementById('app'));
+   
+</script>
